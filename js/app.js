@@ -7,8 +7,18 @@ const navBar = document.querySelector('#navbar__list');
 const fragment = document.createDocumentFragment();
 for(let index =0; index < sections.length; index++) {
   const navItem = document.createElement('li');
-  const currentSectionTitle = sections[index].dataset.nav;
+  const currentSection = sections[index];
+  navItem.setAttribute('data-related-section', currentSection.id);
+  const currentSectionTitle = currentSection.dataset.nav;
   navItem.innerText = currentSectionTitle;
   fragment.appendChild(navItem);
 }
 navBar.appendChild(fragment);
+
+// functions
+// add event to parent for event delegation
+navBar.addEventListener('click', function(event) {
+  const relatedSectionId = event.target.dataset.relatedSection;
+  const respectiveSection = document.getElementById(relatedSectionId);
+  respectiveSection.scrollIntoView();
+});
