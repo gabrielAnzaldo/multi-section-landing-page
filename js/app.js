@@ -3,6 +3,8 @@ import '../css/styles.css';
 const sections = document.querySelectorAll('section');
 // get ul
 const navBar = document.querySelector('#navbar__list');
+// get back to top
+const backToTop = document.getElementById('back-to-top');
 // build nav
 const fragment = document.createDocumentFragment();
 for(let index =0; index < sections.length; index++) {
@@ -31,4 +33,8 @@ navBar.addEventListener('click', function(event) {
   const relatedSectionId = event.target.dataset.relatedSection;
   const respectiveSection = document.getElementById(relatedSectionId);
   respectiveSection.scrollIntoView();
+});
+
+backToTop.addEventListener('click', function() {
+  window.scrollTo({top: 0, behavior: 'smooth'});
 });

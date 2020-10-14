@@ -130,6 +130,9 @@ section {
 .page__footer p{
     color: #fff;
 }
+.page__footer #back-to-top {
+    cursor: pointer;
+}
 
 
 /* ---- Theme Rules ---- */
