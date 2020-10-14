@@ -99,6 +99,25 @@ section {
     top: 0;
     width: 100%;
     z-index: 5;
+    height: 50px;
+}
+.page__header ul, nav{
+    height: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.page__header nav ul li {
+    height: 100%;
+    padding-right: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.page__header nav ul li.active-item {
+    border: 1px solid red;
 }
 
 /* Footer Styles */

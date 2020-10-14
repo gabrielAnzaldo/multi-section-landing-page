@@ -15,9 +15,19 @@ for(let index =0; index < sections.length; index++) {
 }
 navBar.appendChild(fragment);
 
+function resetActiveStyles() {
+  for(let index = 0; index < navBar.children.length; index++) {
+    navBar.children[index].classList.remove('active-item');
+  }
+}
+
 // functions
 // add event to parent for event delegation
 navBar.addEventListener('click', function(event) {
+  // remove active elements from all items
+  resetActiveStyles();
+  event.target.classList.add('active-item');
+
   const relatedSectionId = event.target.dataset.relatedSection;
   const respectiveSection = document.getElementById(relatedSectionId);
   respectiveSection.scrollIntoView();
