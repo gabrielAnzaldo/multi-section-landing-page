@@ -5,16 +5,24 @@ const sections = document.querySelectorAll('section');
 const navBar = document.querySelector('#navbar__list');
 // get back to top
 const backToTop = document.getElementById('back-to-top');
+// section position data
+const sectionsPositionData = [];
 // build nav
 const fragment = document.createDocumentFragment();
 for(let index =0; index < sections.length; index++) {
   const navItem = document.createElement('li');
   const currentSection = sections[index];
+  sectionsPositionData.push({
+    id: currentSection.id,
+    top: currentSection.offsetTop,
+    height: currentSection.offsetHeight
+  });
   navItem.setAttribute('data-related-section', currentSection.id);
   const currentSectionTitle = currentSection.dataset.nav;
   navItem.innerText = currentSectionTitle;
   fragment.appendChild(navItem);
 }
+
 navBar.appendChild(fragment);
 
 function resetActiveStyles() {
@@ -38,3 +46,34 @@ navBar.addEventListener('click', function(event) {
 backToTop.addEventListener('click', function() {
   window.scrollTo({top: 0, behavior: 'smooth'});
 });
+
+function getSectionOnViewport() {
+  let foundSection = false;
+  let sectionId = '';
+  for(let index = 0; index < sectionsPositionData.length && !foundSection; index++) {
+    const item = sectionsPositionData[index];
+    if((window.scrollY + 400) > item.top && (window.scrollY + 400) < (item.height + item.top)) {
+      foundSection = true;
+      sectionId = item.id;
+    }
+  }
+
+  return sectionId;
+}
+
+function resetActiveSectionStyle() {
+  for(let index =0; index < sections.length; index++) {
+    const currentSection = sections[index];
+    currentSection.classList.remove('active-section');
+  }
+}
+function handleOnScroll() {
+  const sectionInViewport = getSectionOnViewport();
+  if(sectionInViewport) {
+    resetActiveSectionStyle();
+    const currentSection = document.getElementById(sectionInViewport);
+    currentSection.classList.add('active-section');
+  }
+}
+
+document.addEventListener('scroll', handleOnScroll);
