@@ -31,22 +31,6 @@ function resetActiveStyles() {
   }
 }
 
-// functions
-// add event to parent for event delegation
-navBar.addEventListener('click', function(event) {
-  // remove active elements from all items
-  resetActiveStyles();
-  event.target.classList.add('active-item');
-
-  const relatedSectionId = event.target.dataset.relatedSection;
-  const respectiveSection = document.getElementById(relatedSectionId);
-  respectiveSection.scrollIntoView();
-});
-
-backToTop.addEventListener('click', function() {
-  window.scrollTo({top: 0, behavior: 'smooth'});
-});
-
 function getSectionOnViewport() {
   let foundSection = false;
   let sectionId = '';
@@ -73,7 +57,31 @@ function handleOnScroll() {
     resetActiveSectionStyle();
     const currentSection = document.getElementById(sectionInViewport);
     currentSection.classList.add('active-section');
+    // active menu
+    resetActiveStyles();
+    const relatedSectionNavItem = document.querySelector(`[data-related-section=${sectionInViewport}]`);
+    if(relatedSectionNavItem) {
+      relatedSectionNavItem .classList.add('active-item');
+    }
   }
 }
 
+function handleOnClickMenuNav(event) {
+  // add event to parent for event delegation
+  // remove active elements from all items
+  resetActiveStyles();
+  event.target.classList.add('active-item');
+
+  const relatedSectionId = event.target.dataset.relatedSection;
+  const respectiveSection = document.getElementById(relatedSectionId);
+  respectiveSection.scrollIntoView();
+}
+
+function handleOnclickButton() {
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// register events
+navBar.addEventListener('click', handleOnClickMenuNav);
 document.addEventListener('scroll', handleOnScroll);
+backToTop.addEventListener('click', handleOnclickButton);
