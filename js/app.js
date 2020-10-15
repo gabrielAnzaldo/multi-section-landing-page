@@ -5,6 +5,8 @@ const sections = document.querySelectorAll('section');
 const navBar = document.querySelector('#navbar__list');
 // get back to top
 const backToTop = document.getElementById('back-to-top');
+// fixed section height
+const FIXED_HEIGHT = 400;
 // section position data
 const sectionsPositionData = [];
 // build nav
@@ -31,12 +33,14 @@ function resetActiveStyles() {
   }
 }
 
+// check if section is visible on the viewport
+// do some calculations to find that section, and quit.
 function getSectionOnViewport() {
   let foundSection = false;
   let sectionId = '';
   for(let index = 0; index < sectionsPositionData.length && !foundSection; index++) {
     const item = sectionsPositionData[index];
-    if((window.scrollY + 400) > item.top && (window.scrollY + 400) < (item.height + item.top)) {
+    if((window.scrollY + FIXED_HEIGHT) > item.top && (window.scrollY + FIXED_HEIGHT) < (item.height + item.top)) {
       foundSection = true;
       sectionId = item.id;
     }
