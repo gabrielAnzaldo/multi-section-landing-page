@@ -1,6 +1,6 @@
 {
   "name": "multi-section-landing-page",
-  "homepage": "https://github.com/gabrielAnzaldo/multi-section-landing-page#readme",
+  "homepage": "https://github.com/gabrielAnzaldo/multi-section-landing-page",
   "version": "1.0.0",
   "description": "Multi section landing page.",
   "private": true,
@@ -19,6 +19,7 @@
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "repository": {
